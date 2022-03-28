@@ -1,20 +1,20 @@
-use std::io::Read;
+use std::io::BufRead;
 
-pub fn get_u32_from_input(input: &mut impl Read) -> u32 {
+pub fn get_u32_from_input(input: &mut impl BufRead) -> u32 {
     let mut parameter = String::new();
 
     input
-        .read_to_string(&mut parameter)
+        .read_line(&mut parameter)
         .expect("Échec de la lecture de l'entrée utilisateur");
 
     parameter.trim().parse().expect("Il ne s'agit pas d'un u32")
 }
 
-pub fn get_string_from_input(input: &mut impl Read) -> String {
+pub fn get_string_from_input(input: &mut impl BufRead) -> String {
     let mut parameter = String::new();
 
     input
-        .read_to_string(&mut parameter)
+        .read_line(&mut parameter)
         .expect("Échec de la lecture de l'entrée utilisateur");
 
     parameter.trim().to_string()

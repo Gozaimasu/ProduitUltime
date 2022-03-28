@@ -1,31 +1,28 @@
+use produit_ultime::{get_string_from_input, get_u32_from_input};
 use std::io;
-use produit_ultime::{get_u32_from_input, get_string_from_input};
+
+use crate::toto::ArticleGagnant;
+pub mod toto;
 
 fn main() {
-    let nb_articles = get_u32_from_input(&mut io::stdin());
+    // Récupération du nombre d'article à partir de stdin
+    let nb_articles = get_u32_from_input(&mut io::stdin().lock());
 
+    // On panique si pas le bon nombre
     if nb_articles == 0 || nb_articles > 40 {
         panic!("{} en dehors des bornes", nb_articles);
     }
+    // Création de l'article gagnant
+    let mut article_gagnant = ArticleGagnant::new();
 
-    let mut max_score = 0;
-    let mut article_gagnant = String::new();
-
+    // On parcourt les articles ...
     for _ in 0..nb_articles {
-        let ligne_score = get_string_from_input(&mut io::stdin());
+        // ... en les lisant à partir de stdin
+        let ligne_score = get_string_from_input(&mut io::stdin().lock());
 
-        let mut split = ligne_score.split(' ').into_iter();
-
-        let score: u32 = split
-            .next()
-            .unwrap()
-            .parse()
-            .expect("Il ne s'agit pas d'un u32");
-        if score > max_score {
-            max_score = score;
-            article_gagnant = split.next().unwrap().to_string();
-        }
+        // On met à jour l'article gagnant
+        article_gagnant.update_from_input(&ligne_score);
     }
 
-    println!("{}", article_gagnant);
+    println!("{}", article_gagnant.libelle.as_ref().unwrap());
 }
