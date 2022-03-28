@@ -1,16 +1,8 @@
 use std::io;
+use produit_ultime::{get_u32_from_input, get_string_from_input};
 
 fn main() {
-    let mut nb_articles = String::new();
-
-    io::stdin()
-        .read_line(&mut nb_articles)
-        .expect("Échec de la lecture de l'entrée utilisateur");
-
-    let nb_articles: u32 = nb_articles
-        .trim()
-        .parse()
-        .expect("Il ne s'agit pas d'un u32");
+    let nb_articles = get_u32_from_input(&mut io::stdin());
 
     if nb_articles == 0 || nb_articles > 40 {
         panic!("{} en dehors des bornes", nb_articles);
@@ -20,11 +12,7 @@ fn main() {
     let mut article_gagnant = String::new();
 
     for _ in 0..nb_articles {
-        let mut ligne_score = String::new();
-
-        io::stdin()
-            .read_line(&mut ligne_score)
-            .expect("Échec de la lecture de l'entrée utilisateur");
+        let ligne_score = get_string_from_input(&mut io::stdin());
 
         let mut split = ligne_score.split(' ').into_iter();
 
