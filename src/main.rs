@@ -35,10 +35,7 @@ fn main() {
             .expect("Il ne s'agit pas d'un u32");
         if score > max_score {
             max_score = score;
-            article_gagnant = split
-                .next
-                ().unwrap()
-                .to_string();
+            article_gagnant = split.next().unwrap().to_string();
         }
     }
 
